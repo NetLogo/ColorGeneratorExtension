@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 import org.nlogo.api.Argument;
@@ -86,13 +85,16 @@ public class ColorGeneratorExtension implements ClassManager {
 			float num = (float)n;
 			
 			LogoListBuilder llb = new LogoListBuilder();
-		
-			float dx = 1.0f / (float) (num - 1);
-			for (int i = 0; i < num; i++) {
-				llb.add(get(i * dx));
+			
+			for (float h = 0; h < 360; h= h + (360 / num)){
+				LogoListBuilder inner = new LogoListBuilder();
+				inner.add((double)h);
+				inner.add((double)100);
+				inner.add((double)100);
+				llb.add(inner.toLogoList());
 			}
-
 			return llb.toLogoList();
+			
 
 		}
 		
@@ -126,9 +128,9 @@ public class ColorGeneratorExtension implements ClassManager {
 				g = 0.0f;
 				b = x;
 			}
-			double dr=(double)r * 255;
-			double dg=(double)g * 255;
-			double db=(double)b * 255;
+			double dr=(double)r * 360;
+			double dg=(double)g * 100;
+			double db=(double)b * 100;
 			LogoListBuilder colorLB = new LogoListBuilder();
 			colorLB.add(dr);
 			colorLB.add(dg);
